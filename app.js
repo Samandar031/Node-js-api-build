@@ -1,13 +1,20 @@
 const express = require('express');
 const app = express();
 const fs = require('fs');
-const { get } = require('http');
+const morgan = require('morgan');
 
 const tours = JSON.parse(
   fs.readFileSync('./dev-data/data/tours-simple.json', 'utf-8')
 );
 
 app.use(express.json());
+app.use(morgan('dev'));
+
+// midleware
+app.use('/api/v1/tours', (req, res, next) => {
+  console.log('middleware');
+  next();
+});
 
 const getTour = (req, res) => {
   res.status(200).json({
