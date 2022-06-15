@@ -101,6 +101,8 @@ app
   .post(updateTour)
   .delete(deleteTour);
 
+const tourRouter = express.Router();
+app.use('/api/v1/tours', tourRouter);
 // /////////////////
 
 app.listen(8000, () => {
